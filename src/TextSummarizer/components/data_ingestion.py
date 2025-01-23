@@ -1,13 +1,14 @@
 import os, sys
-from urllib.request import request 
+from urllib import request
 import zipfile
+
 from src.TextSummarizer.logging import logger
 
-from src.TextSummarizer.config.configuration import DataIngestionConfig
+from src.TextSummarizer.config.configuration import ConfigurationManager
 
 class DataIngestion:
 
-    def __init__(self, config: DataIngestionConfig):
+    def __init__(self, config: ConfigurationManager):
 
         self.config = config
 
@@ -27,6 +28,7 @@ class DataIngestion:
 
         unzip_path = self.config.unzip_dir
         os.makedirs(unzip_path, exist_ok=True)
-        
+
         with zipfile.ZipFile(self.config.locate_data_file, "r") as zip_ref:
             zip_ref.extractall(unzip_path)
+
